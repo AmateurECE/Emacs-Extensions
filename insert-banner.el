@@ -9,7 +9,7 @@
 ;;
 ;; CREATED:	    06/16/2017
 ;;
-;; LAST EDITED:	    07/17/2018
+;; LAST EDITED:	    07/25/2018
 ;;;
 
 ;; ====== NOTE: ======
@@ -926,5 +926,25 @@ end of the current comment, or nil if point is not currently in a comment."
    ;; Default case
    (t
     (message "Support for this mode has not been implemented"))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; KEY BINDINGS
+;;;
+
+(global-unset-key (kbd "C-b"))
+(global-unset-key (kbd "C-b b"))
+(global-set-key (kbd "C-b b") 'insert-file-banner)
+(global-unset-key (kbd "C-b f"))
+(global-set-key (kbd "C-b f") 'insert-function-header)
+(global-unset-key (kbd "C-b h"))
+(global-set-key (kbd "C-b h") 'insert-section-header)
+(global-unset-key (kbd "C-b c"))
+(global-set-key (kbd "C-b c") 'insert-class-header)
+(global-unset-key (kbd "C-x C-s"))
+(global-set-key (kbd "C-x C-s")
+		'(lambda ()
+		   (interactive)
+		   (update-last-edited-date) ;; insert-banner.el
+		   (save-buffer)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
