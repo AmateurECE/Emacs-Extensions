@@ -9,7 +9,7 @@
 ;;
 ;; CREATED:	    06/16/2017
 ;;
-;; LAST EDITED:	    07/25/2018
+;; LAST EDITED:	    09/20/2018
 ;;;
 
 ;; ====== NOTE: ======
@@ -550,6 +550,8 @@ end of the current comment, or nil if point is not currently in a comment."
     (markdown-file-banner))
    ((eq major-mode 'java-mode)
     (java-file-banner))
+   ((eq major-mode 'js-mode)
+    (generic-file-banner "//" "/" nil))
    (t (generic-file-banner "#" "#" nil)))) ;; Default case
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
