@@ -9,7 +9,7 @@
 ;;
 ;; CREATED:	    06/16/2017
 ;;
-;; LAST EDITED:	    09/20/2018
+;; LAST EDITED:	    12/05/2018
 ;;;
 
 ;; ====== NOTE: ======
@@ -281,6 +281,7 @@ end of the current comment, or nil if point is not currently in a comment."
 ;;
 ;; NOTES:	    Uses save excursion, but we'll have to see how moving point
 ;;		    affects the position of the buffer.
+;;		    TODO: Investigate behavior in diff-mode
 ;;;
 (defun update-last-edited-date ()
   "Update the last edited date, if the file was written by me."
@@ -530,12 +531,14 @@ end of the current comment, or nil if point is not currently in a comment."
   (setq name (match-string 1 buffer-file-name))
   (cond
    ((or (eq major-mode 'c-mode)
-	(eq major-mode 'c++-mode)
 	(eq major-mode 'asm-mode)
 	(eq major-mode 'dts-mode)
 	(eq major-mode 'bison-mode)
 	(eq major-mode 'yacc-mode))
     (generic-file-banner " *" "*" "/"))
+   ((or (eq major-mode 'c++-mode)
+	(eq major-mode 'verilog-mode))
+    (generic-file-banner "//" "/" nil))
    ((eq major-mode 'emacs-lisp-mode)
     (generic-file-banner ";;" ";" nil))
    ((or (eq major-mode 'latex-mode) (eq major-mode 'matlab-mode))
@@ -743,6 +746,9 @@ end of the current comment, or nil if point is not currently in a comment."
 	(eq major-mode 'bison-mode)
 	(eq major-mode 'yacc-mode))
     (generic-function-header " *" "*" "/"))
+   ((or (eq major-mode 'c++-mode)
+	(eq major-mode 'verilog-mode))
+    (generic-function-header "//" "/" nil))
    ((eq major-mode 'emacs-lisp-mode)
     (generic-function-header ";;" ";" nil))
    ((eq major-mode 'matlab-mode)
@@ -842,6 +848,9 @@ end of the current comment, or nil if point is not currently in a comment."
 	(eq major-mode 'bison-mode)
 	(eq major-mode 'yacc-mode))
     (generic-section-header " *" "*" "/"))
+   ((or (eq major-mode 'c++-mode)
+	(eq major-mode 'verilog-mode))
+    (generic-section-header "//" "/" nil))
    ((eq major-mode 'emacs-lisp-mode)
     (generic-section-header ";;" ";" nil))
    ((or (eq major-mode 'latex-mode)
