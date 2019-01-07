@@ -4,6 +4,3 @@
 [submodule "s.el"]
 	path = s.el
 	url = https://github.com/magnars/s.el
-[submodule "groovy-emacs-modes"]
-	path = groovy-emacs-modes
-	url = https://github.com/Groovy-Emacs-Modes/groovy-emacs-modes
