@@ -4,3 +4,6 @@
 [submodule "s.el"]
 	path = s.el
 	url = https://github.com/magnars/s.el
+[submodule "swift-mode"]
+	path = swift-mode
+	url = https://github.com/swift-emacs/swift-mode

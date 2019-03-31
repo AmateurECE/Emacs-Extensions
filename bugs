@@ -1,0 +1,4 @@
+./insert-banner.el: Does not work with module banner in python mode | id:04b635e4be1dcd55d8176dab261db876fff7f486
+./insert-banner.el: Investigate behavior in diff-mode | id:070cf4e628150c8f1451960e2e33659fc59b98a0
+./line-wrap.el: Line delimiting is broken | id:6af2e34d762a537ff91d7f55c03cfe1c08b5b23f
+./insert-banner.el: Create end-of-file marker | id:6bf6d86e21a2f455d56305273fbe2798e0dd33e5
