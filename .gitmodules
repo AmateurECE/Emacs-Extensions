@@ -7,3 +7,6 @@
 [submodule "swift-mode"]
 	path = swift-mode
 	url = https://github.com/swift-emacs/swift-mode
+[submodule "polymode"]
+	path = polymode
+	url = https://github.com/polymode/polymode
