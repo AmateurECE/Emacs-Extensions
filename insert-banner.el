@@ -9,7 +9,7 @@
 ;;
 ;; CREATED:	    06/16/2017
 ;;
-;; LAST EDITED:	    12/05/2018
+;; LAST EDITED:	    05/09/2019
 ;;;
 
 ;; ====== NOTE: ======
@@ -169,13 +169,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.")
   "Inserts an end-of-file marker at the end of the file."
   (when (not (null stt)) (insert stt))
   (if (null stt)
-      (setq iter 78)
-    (setq iter 77))
+      (setq iter 79)
+    (setq iter 78))
 
   (let (val)
     (dotimes (num iter val)
-      (insert sym)))
-  (when (not (null stt)) (insert stt)))
+      (insert sym))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FUNCTION:	    short-buffer-file-name
@@ -555,6 +554,8 @@ end of the current comment, or nil if point is not currently in a comment."
     (java-file-banner))
    ((eq major-mode 'js-mode)
     (generic-file-banner "//" "/" nil))
+   ((eq major-mode 'ess-r-mode)
+    (generic-file-banner "##" "#" nil))
    (t (generic-file-banner "#" "#" nil)))) ;; Default case
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
