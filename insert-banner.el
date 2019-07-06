@@ -9,7 +9,7 @@
 ;;
 ;; CREATED:	    06/16/2017
 ;;
-;; LAST EDITED:	    05/20/2019
+;; LAST EDITED:	    07/06/2019
 ;;;
 
 ;; ====== NOTE: ======
@@ -281,6 +281,7 @@ end of the current comment, or nil if point is not currently in a comment."
 ;; NOTES:	    Uses save excursion, but we'll have to see how moving point
 ;;		    affects the position of the buffer.
 ;;		    TODO: Investigate behavior in diff-mode
+;;		    TODO: Does not work with module banner in python mode
 ;;;
 (defun update-last-edited-date ()
   "Update the last edited date, if the file was written by me."
@@ -747,10 +748,11 @@ end of the current comment, or nil if point is not currently in a comment."
 	(eq major-mode 'bison-mode)
 	(eq major-mode 'yacc-mode))
     (generic-function-header " *" "*" "/"))
-   ((or (eq major-mode 'c++-mode)
-	(eq major-mode 'verilog-mode)
+   ((or (eq major-mode 'verilog-mode)
         (eq major-mode 'js-mode))
     (generic-function-header "//" "/" nil))
+   ((eq major-mode 'c++-mode)
+    (generic-function-header "//" "-" nil))
    ((eq major-mode 'emacs-lisp-mode)
     (generic-function-header ";;" ";" nil))
    ((eq major-mode 'matlab-mode)
