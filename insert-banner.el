@@ -9,7 +9,7 @@
 ;;
 ;; CREATED:	    06/16/2017
 ;;
-;; LAST EDITED:	    05/09/2019
+;; LAST EDITED:	    05/20/2019
 ;;;
 
 ;; ====== NOTE: ======
@@ -748,7 +748,8 @@ end of the current comment, or nil if point is not currently in a comment."
 	(eq major-mode 'yacc-mode))
     (generic-function-header " *" "*" "/"))
    ((or (eq major-mode 'c++-mode)
-	(eq major-mode 'verilog-mode))
+	(eq major-mode 'verilog-mode)
+        (eq major-mode 'js-mode))
     (generic-function-header "//" "/" nil))
    ((eq major-mode 'emacs-lisp-mode)
     (generic-function-header ";;" ";" nil))
@@ -850,7 +851,8 @@ end of the current comment, or nil if point is not currently in a comment."
 	(eq major-mode 'yacc-mode))
     (generic-section-header " *" "*" "/"))
    ((or (eq major-mode 'c++-mode)
-	(eq major-mode 'verilog-mode))
+	(eq major-mode 'verilog-mode)
+        (eq major-mode 'js-mode))
     (generic-section-header "//" "/" nil))
    ((eq major-mode 'emacs-lisp-mode)
     (generic-section-header ";;" ";" nil))
