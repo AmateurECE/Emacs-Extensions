@@ -9,7 +9,7 @@
 ;;
 ;; CREATED:	    06/16/2017
 ;;
-;; LAST EDITED:	    07/06/2019
+;; LAST EDITED:	    07/16/2019
 ;;;
 
 ;; ====== NOTE: ======
@@ -744,7 +744,6 @@ end of the current comment, or nil if point is not currently in a comment."
   (setq stt nil)
   (cond
    ((or (eq major-mode 'c-mode)
-	(eq major-mode 'c++-mode)
 	(eq major-mode 'bison-mode)
 	(eq major-mode 'yacc-mode))
     (generic-function-header " *" "*" "/"))
@@ -752,7 +751,7 @@ end of the current comment, or nil if point is not currently in a comment."
         (eq major-mode 'js-mode))
     (generic-function-header "//" "/" nil))
    ((eq major-mode 'c++-mode)
-    (generic-function-header "//" "-" nil))
+    (generic-function-header "//" "/" nil))
    ((eq major-mode 'emacs-lisp-mode)
     (generic-function-header ";;" ";" nil))
    ((eq major-mode 'matlab-mode)
@@ -846,7 +845,6 @@ end of the current comment, or nil if point is not currently in a comment."
 
   (cond
    ((or (eq major-mode 'c-mode)
-	(eq major-mode 'c++-mode)
 	(eq major-mode 'asm-mode)
 	(eq major-mode 'dts-mode)
 	(eq major-mode 'bison-mode)
