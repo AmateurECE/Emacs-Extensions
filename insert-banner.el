@@ -9,7 +9,7 @@
 ;;
 ;; CREATED:	    06/16/2017
 ;;
-;; LAST EDITED:	    07/16/2019
+;; LAST EDITED:	    05/01/2020
 ;;;
 
 ;; ====== NOTE: ======
@@ -553,7 +553,7 @@ end of the current comment, or nil if point is not currently in a comment."
     (markdown-file-banner))
    ((eq major-mode 'java-mode)
     (java-file-banner))
-   ((eq major-mode 'js-mode)
+   ((eq major-mode 'rjsx-mode)
     (generic-file-banner "//" "/" nil))
    ((eq major-mode 'ess-r-mode)
     (generic-file-banner "##" "#" nil))
