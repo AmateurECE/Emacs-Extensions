@@ -9,7 +9,7 @@
 ;;
 ;; CREATED:	    06/16/2017
 ;;
-;; LAST EDITED:	    05/01/2020
+;; LAST EDITED:	    09/12/2020
 ;;;
 
 ;; ====== NOTE: ======
@@ -294,7 +294,7 @@ end of the current comment, or nil if point is not currently in a comment."
 	(re-search-forward "LAST EDITED:" eos 'keep-point)
 	(forward-whitespace 1)
 	(setq c (char-after (point)))
-	(when (and (<= c ?9) (>= c ?0))
+	(when (and (not (null c)) (<= c ?9) (>= c ?0))
 	  (while (not (eq (setq c (char-after (point))) ?\n))
 	    (delete-char 1))
 	  (insert (shell-command-to-string "echo -n $(date +%m/%d/%Y)")))))))
