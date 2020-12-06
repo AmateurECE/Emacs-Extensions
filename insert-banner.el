@@ -9,7 +9,7 @@
 ;;
 ;; CREATED:	    06/16/2017
 ;;
-;; LAST EDITED:	    09/12/2020
+;; LAST EDITED:	    09/15/2020
 ;;;
 
 ;; ====== NOTE: ======
@@ -142,14 +142,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.")
   (setq guard-name-regexp (concat
 			   "\\<"
 			   (rx (group (one-or-more (any alpha))))
-			   "\\.h\\>"))
+			   "\\.hp*\\>"))
   (string-match guard-name-regexp file-name)
   (setq guard-name (concat "__ET_"
 			   (upcase (match-string 1 file-name))
 			   "__"))
   (insert "#ifndef " guard-name "\n")
   (insert "#define " guard-name "\n\n")
-  (insert "#endif /* " guard-name " */\n"))
+  (insert "#endif // " guard-name "\n"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FUNCTION:	    insert-end-of-file-marker
@@ -372,7 +372,7 @@ end of the current comment, or nil if point is not currently in a comment."
     (insert "\n\n")
 
     ;; If our file is a C Header, add include define guards
-    (if (string-match "\\.h$" (short-buffer-file-name))
+    (if (string-match "\\.hp*$" (short-buffer-file-name))
 	(progn
 	  (insert-define-guards)
 	  (insert "\n")))
