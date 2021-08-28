@@ -1,26 +1,33 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; NAME:	    insert-banner.el
-;;
-;; AUTHOR:	    Ethan D. Twardy
-;;
-;; DESCRIPTION:	    File containing defuns for documenting code. These commands
-;;		    also have key bindings so that they can easily be used
-;;		    from any buffer. They were even used to document this file!
-;;
-;; CREATED:	    06/16/2017
-;;
-;; LAST EDITED:	    09/15/2020
-;;;
+;;; insert-banner.el --- Easily document my code    -*- lexical-binding: t; -*-
 
-;; ====== NOTE: ======
-;; I think that good documentation is very important. If you have any
-;; recommendations for my documentation style, please don't hesitate to let me
-;; know.
-;; ===================
+;; Copyright (C) 2021 Ethan D. Twardy
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Variable Definitions
-;;;
+;; Author: Ethan D. Twardy <ethan.twardy@gmail.com>
+;; Keywords: lisp
+;; Version: 1.0.0
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; Add some usful functions to document my code, namely by inserting file
+;; headers, function headers, and section headers to separate code.
+
+;;; Code:
+
+;; CREATED:     06/16/2017
+;; LAST EDITED: 08/28/2021
 
 (defgroup banner-comments nil
   "Group for the custom attributes that apply to insert-banner.el")
@@ -961,4 +968,5 @@ end of the current comment, or nil if point is not currently in a comment."
 		   (update-last-edited-date) ;; insert-banner.el
 		   (save-buffer)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(provide 'insert-banner)
+;;; insert-banner.el ends here
