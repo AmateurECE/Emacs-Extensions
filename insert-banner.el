@@ -121,7 +121,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.")
 
-(defvar my-name "Ethan D. Twardy <edtwardy@mtu.edu>")
+(defvar my-name "Ethan D. Twardy <ethan.twardy@gmail.com>")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Function Definitions
@@ -544,7 +544,8 @@ end of the current comment, or nil if point is not currently in a comment."
 	(eq major-mode 'yacc-mode))
     (generic-file-banner " *" "*" "/"))
    ((or (eq major-mode 'c++-mode)
-	(eq major-mode 'verilog-mode))
+	(eq major-mode 'verilog-mode)
+        (eq major-mode 'rust-mode))
     (generic-file-banner "//" "/" nil))
    ((eq major-mode 'emacs-lisp-mode)
     (generic-file-banner ";;" ";" nil))
@@ -859,7 +860,8 @@ end of the current comment, or nil if point is not currently in a comment."
     (generic-section-header " *" "*" "/"))
    ((or (eq major-mode 'c++-mode)
 	(eq major-mode 'verilog-mode)
-        (eq major-mode 'js-mode))
+        (eq major-mode 'js-mode)
+        (eq major-mode 'rust-mode))
     (generic-section-header "//" "/" nil))
    ((eq major-mode 'emacs-lisp-mode)
     (generic-section-header ";;" ";" nil))
