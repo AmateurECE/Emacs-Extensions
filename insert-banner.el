@@ -44,69 +44,15 @@
 
 (defcustom file-copyright-license nil
   "The license that the programmer wishes to use. Choices are provided.
-file-gpl-3-license\t\tThe GNU GPL-3.0+
-file-lgpl-3-license\t\tThe GNU Lesser GPL, version 3.0+
-file-bsd-4-license\t\tThe BSD 4-Clause license
-file-mit-license\t\tThe MIT License"
+file-gplv3-license\t\tThe GNU GPL-3.0+"
   :type 'hook
-  :options '(file-gpl-3-license
-	     file-bsd-4-license
-	     file-mit-license)
+  :options '(file-gplv3-license)
   :group 'banner-comments)
 
 (defconst file-copyright-notice
   "Copyright Date, Ethan D. Twardy")
 
-(defconst file-mit-license
-  "\
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the \"Software\"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.")
-
-(defconst file-bsd-4-license
-  "\
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-3. All advertising materials mentioning features or use of this software
-   must display the following acknowledgement:
-   This product includes software developed by the <organization>.
-4. Neither the name of the <organization> nor the
-   names of its contributors may be used to endorse or promote products
-   derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY <COPYRIGHT HOLDER> ''AS IS'' AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-	    LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-	    ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-	    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-	    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.")
-
-(defconst file-gpl-3-license
+(defconst file-gplv3-license
   "\
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -233,12 +179,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.")
 (defun get-file-banner-license ()
   "Returns the license notice, as a string."
   (cond
-   ((eq file-copyright-license 'file-gpl-3-license)
-    file-gpl-3-license)
-   ((eq file-copyright-license 'file-bsd-4-license)
-    file-bsd-4-license)
-   ((eq file-copyright-license 'file-mit-license)
-    file-mit-license)
+   ((eq file-copyright-license 'file-gplv3-license)
+    file-gplv3-license)
    (t nil)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -371,7 +313,9 @@ end of the current comment, or nil if point is not currently in a comment."
 	    (insert (replace-regexp-in-string "\n" "" cpydate) "\n")
 	    (insert nl "\n")
 	    (dolist (line (split-string notice "\n"))
-	      (insert nl " " line "\n")))))
+              (if (eq line "")
+                  (insert nl "\n")
+	        (insert nl " " line "\n"))))))
     (if (string-equal sym ";")
 	(insert sym sym sym)
       (insert nl sym sym))

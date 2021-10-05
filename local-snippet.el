@@ -31,16 +31,19 @@
 
 (defun load-local-snippets ()
   "Iterate over elements of the current path, loading found .emacs files."
-  (let ((iterator "") (snippet ""))
-    (dolist (element (split-string buffer-file-name "/") t)
-      (if (not (eq element ""))
-          (progn
-            (setq iterator (concat iterator "/" element))
-            (setq snippet (concat iterator "/.emacs"))
-            (if (and (file-exists-p snippet)
-                     (not (string= snippet user-init-file)))
-                (load-file snippet))))))
+  (if (not (null buffer-file-name))
+      (let ((iterator "") (snippet ""))
+        (dolist (element (split-string buffer-file-name "/") t)
+          (if (not (eq element ""))
+              (progn
+                (setq iterator (concat iterator "/" element))
+                (setq snippet (concat iterator "/.emacs"))
+                (if (and (file-exists-p snippet)
+                         (not (string= snippet user-init-file)))
+                    (progn
+                      (load-file snippet)
+                      (message "Loading file " snippet))))))))
   )
 
 (provide 'local-snippet)
-;;; insert-banner.el ends here
+;;; local-snippet.el ends here
