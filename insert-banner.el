@@ -97,9 +97,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.")
 			   (rx (group (one-or-more (any alpha))))
 			   "\\.hp*\\>"))
   (string-match guard-name-regexp file-name)
-  (setq guard-name (concat "__ET_"
-			   (upcase (match-string 1 file-name))
-			   "__"))
+  (setq guard-name (concat "EDT_"
+			   (upcase (match-string 1 file-name))))
   (insert "#ifndef " guard-name "\n")
   (insert "#define " guard-name "\n\n")
   (insert "#endif // " guard-name "\n"))
