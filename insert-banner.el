@@ -27,7 +27,7 @@
 ;;; Code:
 
 ;; CREATED:     06/16/2017
-;; LAST EDITED: 08/28/2021
+;; LAST EDITED: 10/28/2021
 
 (defgroup banner-comments nil
   "Group for the custom attributes that apply to insert-banner.el")
@@ -50,7 +50,7 @@ file-gplv3-license\t\tThe GNU GPL-3.0+"
   :group 'banner-comments)
 
 (defconst file-copyright-notice
-  "Copyright Date, Ethan D. Twardy")
+  (concat "Copyright Date, " (getenv "GIT_AUTHOR_NAME")))
 
 (defconst file-gplv3-license
   "\
@@ -67,7 +67,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.")
 
-(defvar my-name "Ethan D. Twardy <ethan.twardy@gmail.com>")
+(defvar my-name (getenv "GIT_AUTHOR_NAME"))
+(defvar my-email (getenv "GIT_AUTHOR_EMAIL"))
+(defvar my-signature (concat my-name " <" my-email ">"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Function Definitions
@@ -238,7 +240,7 @@ end of the current comment, or nil if point is not currently in a comment."
 	  eos c)
       (beginning-of-buffer)
       (setq eos (end-of-comment))
-      (when (re-search-forward "Ethan D. Twardy" eos 'keep-point)
+      (when (re-search-forward my-name eos 'keep-point)
 	(re-search-forward "LAST EDITED:" eos 'keep-point)
 	(forward-whitespace 1)
 	(setq c (char-after (point)))
@@ -294,7 +296,7 @@ end of the current comment, or nil if point is not currently in a comment."
 
   (insert "\n" nl)
   (insert-and-tab " NAME:" name "\n" nl "\n" nl)
-  (insert-and-tab " AUTHOR:" my-name "\n" nl "\n" nl)
+  (insert-and-tab " AUTHOR:" my-signature "\n" nl "\n" nl)
   (insert-and-tab " DESCRIPTION:")
   (save-excursion
     (insert "\n" nl "\n" nl)
@@ -352,7 +354,7 @@ end of the current comment, or nil if point is not currently in a comment."
 
   (insert "\n" nl)
   (insert-and-tab " NAME:" name "\n" nl "\n" nl)
-  (insert-and-tab " AUTHOR:" my-name "\n" nl "\n" nl)
+  (insert-and-tab " AUTHOR:" my-signature "\n" nl "\n" nl)
   (insert " DESCRIPTION:")
   (indent-to-column 20)
   (save-excursion
@@ -451,7 +453,7 @@ end of the current comment, or nil if point is not currently in a comment."
   (insert-and-tab "\n * NAME:" name)
   (insert-and-tab "\n *\n * DESCRIPTION:")
   (save-excursion
-    (insert-and-tab "\n *\n * @author" my-name)
+    (insert-and-tab "\n *\n * @author" my-signature)
     (insert-and-tab "\n *\n * CREATED:" date)
     (insert-and-tab " *\n * LAST EDITED:" date " */")))
 
@@ -895,6 +897,13 @@ end of the current comment, or nil if point is not currently in a comment."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; KEY BINDINGS
 ;;;
+
+(if (string= "" (getenv "GIT_AUTHOR_NAME"))
+    (warn (concat "GIT_AUTHOR_NAME is not defined in the environment. "
+                  "This package may not work correctly.")))
+(if (string= "" (getenv "GIT_AUTHOR_EMAIL"))
+    (warn (concat "GIT_AUTHOR_EMAIL is not defined in the environment. "
+                  "This package may not work correctly.")))
 
 (global-unset-key (kbd "C-b"))
 (global-unset-key (kbd "C-b b"))
