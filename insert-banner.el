@@ -96,11 +96,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.")
   (setq file-name (short-buffer-file-name))
   (setq guard-name-regexp (concat
 			   "\\<"
-			   (rx (group (one-or-more (any alpha))))
+			   (rx (group (one-or-more (any word punct))))
 			   "\\.hp*\\>"))
   (string-match guard-name-regexp file-name)
-  (setq guard-name (concat "EDT_"
-			   (upcase (match-string 1 file-name))))
+  (setq guard-name (concat
+                    (replace-regexp-in-string
+                     (regexp-quote "-") "_"
+                     (upcase (match-string 1 file-name)))
+                    "_H"))
   (insert "#ifndef " guard-name "\n")
   (insert "#define " guard-name "\n\n")
   (insert "#endif // " guard-name "\n"))
