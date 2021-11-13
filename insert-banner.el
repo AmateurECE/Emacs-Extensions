@@ -559,12 +559,13 @@ end of the current comment, or nil if point is not currently in a comment."
 ;;
 ;; ARGUMENTS:	    nl, sym, stt: An arbitrary arrangement of characters that
 ;;			marginally resemble the comment character for the lang.
+;;                  name: Name of the function
 ;;
 ;; RETURN:	    None.
 ;;
 ;; NOTES:	    None.
 ;;;
-(defun generic-function-header (nl sym stt)
+(defun generic-function-header (nl sym stt name)
   "Inserts the generic function header"
   (when (not (null stt)) (insert stt))
   (if (null stt)
@@ -590,13 +591,13 @@ end of the current comment, or nil if point is not currently in a comment."
 ;;
 ;; DESCRIPTION:	    Inserts a function header for LaTeX.
 ;;
-;; ARGUMENTS:	    none.
+;; ARGUMENTS:       name: Name of the function
 ;;
 ;; RETURN:	    none.
 ;;
 ;; NOTES:	    none.
 ;;;
-(defun latex-function-header ()
+(defun latex-function-header (name)
   "Inserts a command header for LaTeX."
   
   (let (val)
@@ -614,13 +615,13 @@ end of the current comment, or nil if point is not currently in a comment."
 ;;
 ;; DESCRIPTION:	    Insert an assembly subroutine header.
 ;;
-;; ARGUMENTS:	    none.
+;; ARGUMENTS:	    name: Name of the function
 ;;
 ;; RETURN:	    none.
 ;;
 ;; NOTES:	    none.
 ;;;
-(defun asm-function-header ()
+(defun asm-function-header (name)
   "Insert an Assembly subroutine header"
 
   (insert "/")
@@ -641,13 +642,13 @@ end of the current comment, or nil if point is not currently in a comment."
 ;; DESCRIPTION:	    Inserts a PyDoc Function "header" inside of a function
 ;;		    definition.
 ;;
-;; ARGUMENTS:	    none.
+;; ARGUMENTS:       name: Name of the function
 ;;
 ;; RETURN:	    none.
 ;;
 ;; NOTES:	    none.
 ;;;
-(defun python-function-header ()
+(defun python-function-header (name)
   "Inserts a PyDoc function header in the Google style."
   ;; Not interactive.
   (insert "\"\"\"" name ":\n")
@@ -675,13 +676,13 @@ end of the current comment, or nil if point is not currently in a comment."
 ;;
 ;; DESCRIPTION:	    Inserts a JavaDoc function header.
 ;;
-;; ARGUMENTS:	    none
+;; ARGUMENTS:	    name: Name of the function
 ;;
 ;; RETURN:	    none
 ;;
 ;; NOTES:	    none.
 ;;;
-(defun java-function-header ()
+(defun java-function-header (name)
   "Inserts a JavaDoc function header in the style required by my CS2321 class."
   ;; Not interactive
   (indent-for-tab-command)
@@ -722,26 +723,26 @@ end of the current comment, or nil if point is not currently in a comment."
   (cond
    ((or (eq major-mode 'bison-mode)
 	(eq major-mode 'yacc-mode))
-    (generic-function-header " *" "*" "/"))
+    (generic-function-header " *" "*" "/" name))
    ((or (eq major-mode 'c-mode)
         (eq major-mode 'verilog-mode)
         (eq major-mode 'js-mode)
         (eq major-mode 'c++-mode))
-    (generic-function-header "//" "/" nil))
+    (generic-function-header "//" "/" nil name))
    ((eq major-mode 'emacs-lisp-mode)
-    (generic-function-header ";;" ";" nil))
+    (generic-function-header ";;" ";" nil name))
    ((eq major-mode 'matlab-mode)
-    (generic-function-header "%" "%" nil))
+    (generic-function-header "%" "%" nil name))
    ((eq major-mode 'latex-mode)
-    (latex-function-header))
+    (latex-function-header name))
    ((eq major-mode 'asm-mode)
-    (asm-function-header))
+    (asm-function-header name))
    ((eq major-mode 'python-mode)
-    (python-function-header))
+    (python-function-header name))
    ((eq major-mode 'java-mode)
-    (java-function-header))
+    (java-function-header name))
    ;; Default case
-   (t (generic-function-header "#" "#" nil))))
+   (t (generic-function-header "#" "#" nil name))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Section Header
@@ -758,12 +759,13 @@ end of the current comment, or nil if point is not currently in a comment."
 ;;		    sym: (string) -- standard comment char.
 ;;		    stt: (string) -- char that starts & ends a comment. Only
 ;;			used in c-mode.
+;;                  name: Name of the section
 ;;
 ;; RETURN:	    none.
 ;;
 ;; NOTES:	    none.
 ;;;
-(defun generic-section-header (nl sym stt)
+(defun generic-section-header (nl sym stt name)
   "Insert a generic-section header."
   (when (not (null stt)) (insert stt))
   (if (null stt)
@@ -785,13 +787,13 @@ end of the current comment, or nil if point is not currently in a comment."
 ;;
 ;; DESCRIPTION:	    Insert a JavaDoc section header.
 ;;
-;; ARGUMENTS:	    none
+;; ARGUMENTS:	    name: Name of the section header
 ;;
 ;; RETURN:	    none
 ;;
 ;; NOTES:	    none
 ;;;
-(defun java-section-header ()
+(defun java-section-header (name)
   "Insert a JavaDoc Section header."
   (indent-for-tab-command)
   (insert "/")
@@ -824,22 +826,22 @@ end of the current comment, or nil if point is not currently in a comment."
 	(eq major-mode 'dts-mode)
 	(eq major-mode 'bison-mode)
 	(eq major-mode 'yacc-mode))
-    (generic-section-header " *" "*" "/"))
+    (generic-section-header " *" "*" "/" name))
    ((or (eq major-mode 'c++-mode)
         (eq major-mode 'c-mode)
 	(eq major-mode 'verilog-mode)
         (eq major-mode 'js-mode)
         (eq major-mode 'rust-mode))
-    (generic-section-header "//" "/" nil))
+    (generic-section-header "//" "/" nil name))
    ((eq major-mode 'emacs-lisp-mode)
-    (generic-section-header ";;" ";" nil))
+    (generic-section-header ";;" ";" nil name))
    ((or (eq major-mode 'latex-mode)
 	(eq major-mode 'matlab-mode))
-    (generic-section-header "%" "%" nil))
+    (generic-section-header "%" "%" nil name))
    ((eq major-mode 'java-mode)
-    (java-section-header))
+    (java-section-header name))
    ;; Default case
-   (t (generic-section-header "#" "#" nil))))
+   (t (generic-section-header "#" "#" nil name))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Class Docs
