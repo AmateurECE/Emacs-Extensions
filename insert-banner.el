@@ -90,6 +90,11 @@ IN THE SOFTWARE.")
 (defvar my-email (getenv "GIT_AUTHOR_EMAIL"))
 (defvar my-signature (concat my-name " <" my-email ">"))
 
+(defcustom define-guard-prefix ""
+  "Prefix to use for every define guard in all headers"
+  :type 'string
+  :group 'banner-comments)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Function Definitions
 ;;;
@@ -119,6 +124,7 @@ IN THE SOFTWARE.")
 			   "\\.hp*\\>"))
   (string-match guard-name-regexp file-name)
   (setq guard-name (concat
+                    define-guard-prefix
                     (replace-regexp-in-string
                      (regexp-quote "-") "_"
                      (upcase (match-string 1 file-name)))
