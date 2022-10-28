@@ -4,7 +4,7 @@
 
 ;; Author: Ethan D. Twardy <ethan.twardy@gmail.com>
 ;; Keywords: lisp
-;; Version: 1.0.0
+;; Version: 1.1.0
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -43,13 +43,16 @@
   :group 'banner-comments)
 
 (defcustom file-copyright-license nil
-  "The license that the programmer wishes to use. Choices are provided."
+  "The license to paste the text of in the header of each file."
   :type 'hook
-  :options '(file-gplv3-license file-mit-license)
+  :options '(file-gplv3-license file-mit-license file-custom-license)
   :group 'banner-comments)
 
 (defconst file-copyright-notice
   (concat "Copyright Date, " (getenv "GIT_AUTHOR_NAME")))
+
+(defconst file-copyright-custom-license nil
+  "Custom license text, in case a specialized notice is required")
 
 (defconst file-gplv3-license
   "\
@@ -227,6 +230,8 @@ IN THE SOFTWARE.")
     file-gplv3-license)
    ((eq file-copyright-license 'file-mit-license)
     file-mit-license)
+   ((eq file-copyright-license 'file-custom-license)
+    file-copyright-custom-license)
    (t nil)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
