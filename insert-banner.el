@@ -37,6 +37,12 @@
   :type 'boolean
   :group 'banner-comments)
 
+(defcustom file-banner-skip-last-edited nil
+  "If this is set to t, insert-file-banner will not populate the LAST EDITED field
+in file banners.."
+  :type 'boolean
+  :group 'banner-comments)
+
 (defcustom insert-banner-indent-column 20
   "The column number to indent all fields to by default."
   :type 'integer
@@ -368,7 +374,10 @@ end of the current comment, or nil if point is not currently in a comment."
   (save-excursion
     (insert "\n" nl "\n" nl)
     (insert-and-tab " CREATED:" date nl "\n" nl)
-    (insert-and-tab " LAST EDITED:" date)
+    (if (not file-banner-skip-last-edited)
+        (progn
+          (insert " LAST EDITED:	    " date)
+          (insert nl "\n" nl)))
     (if  file-banner-license-notice
 	(progn
 	  (insert nl "\n" nl " ")
@@ -428,8 +437,10 @@ end of the current comment, or nil if point is not currently in a comment."
     (insert "\n" nl "\n" nl)
     (insert " CREATED:	    " date)
     (insert nl "\n" nl)
-    (insert " LAST EDITED:	    " date)
-    (insert nl "\n" nl)
+    (if (not file-banner-skip-last-edited)
+        (progn
+          (insert " LAST EDITED:	    " date)
+          (insert nl "\n" nl)))
     (insert " DEPENDENCIES:	    \n")
     (insert nl sym sym)))
 
@@ -452,7 +463,8 @@ end of the current comment, or nil if point is not currently in a comment."
   (save-excursion
     (insert "\n" sym "\n" sym)
     (insert-and-tab " CREATED:" date sym "\n" sym)
-    (insert-and-tab " LAST EDITED:" date sym "\n")
+    (if (not file-banner-skip-last-edited)
+        (insert-and-tab " LAST EDITED:" date sym "\n"))
     (if file-banner-license-notice
 	(progn
 	  (insert sym "\n" sym " ")
@@ -487,7 +499,8 @@ end of the current comment, or nil if point is not currently in a comment."
   (save-excursion
     (insert "\n\n")
     (insert-and-tab " CREATED:" date "\n")
-    (insert-and-tab " LAST EDITED:" date)
+    (if (not file-banner-skip-last-edited)
+        (insert-and-tab " LAST EDITED:" date sym "\n"))
     (if file-banner-license-notice
 	(progn
 	  (insert "\n")
@@ -522,7 +535,8 @@ end of the current comment, or nil if point is not currently in a comment."
   (save-excursion
     (insert-and-tab "\n *\n * @author" my-signature)
     (insert-and-tab "\n *\n * CREATED:" date)
-    (insert-and-tab " *\n * LAST EDITED:" date " */")))
+    (if (not file-banner-skip-last-edited)
+        (insert-and-tab " LAST EDITED:" date sym "\n"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FUNCTION:	    insert-file-banner
@@ -992,7 +1006,8 @@ end of the current comment, or nil if point is not currently in a comment."
 (global-set-key (kbd "C-x C-s")
 		'(lambda ()
 		   (interactive)
-		   (update-last-edited-date) ;; insert-banner.el
+		   (if (not file-banner-skip-last-edited)
+                       (update-last-edited-date)) ;; insert-banner.el
 		   (save-buffer)))
 
 (provide 'insert-banner)
