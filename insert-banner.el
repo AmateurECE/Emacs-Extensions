@@ -45,7 +45,8 @@
 (defcustom file-copyright-license nil
   "The license to paste the text of in the header of each file."
   :type 'hook
-  :options '(file-gplv3-license file-mit-license file-custom-license)
+  :options '(file-gplv3-license file-mit-license file-apache-2.0-license
+                                file-custom-license)
   :group 'banner-comments)
 
 (defconst file-copyright-notice
@@ -103,6 +104,20 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.")
+
+(defconst file-apache-2.0-license
+  "\
+Licensed under the Apache License, Version 2.0 (the \"License\");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an \"AS IS\" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.")
 
 (defvar my-name (getenv "GIT_AUTHOR_NAME"))
 (defvar my-email (getenv "GIT_AUTHOR_EMAIL"))
@@ -230,6 +245,8 @@ IN THE SOFTWARE.")
     file-gplv3-license)
    ((eq file-copyright-license 'file-mit-license)
     file-mit-license)
+   ((eq file-copyright-license 'file-apache-2.0-license)
+    file-apache-2.0-license)
    ((eq file-copyright-license 'file-custom-license)
     file-copyright-custom-license)
    (t nil)))
